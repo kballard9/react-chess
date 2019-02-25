@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Square should render the black square 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "#b58863",
+      "height": 100,
+      "width": 100,
+    }
+  }
+/>
+`;
