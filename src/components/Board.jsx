@@ -13,18 +13,25 @@ const isBlack = (row, columnIndex) => {
 
 export default class Board extends React.Component {
   state = {
-    position: 'b2'
+    position: 'b2',
+    selected: null
   }
+
   onPositionChange = (column, row) => () => {console.log(column, row)
   this.setState({position:`${column}${row}`})
   }
+
+  onSelect = (column, row) => () => {
+    this.setState({selected:`${column}${row}`});
+  }
+
   render() {
-    const { position } = this.state;
+    const { position, selected } = this.state;
     return (<div>
       {rows.map(r => (
         <div key={r} style={{ display: 'flex' }}>
           {columns.map((c, index) => (
-            <Square key={c} black={isBlack(r, index)} onClack={this.onPositionChange(c,r)}>
+            <Square key={c} selected={`${c}${r}` === selected} black={isBlack(r, index)} onClack={this.onSelect(c,r)}>
             { position === `${c}${r}` && <Pawn></Pawn> }
             </Square>
           ))}
@@ -33,5 +40,4 @@ export default class Board extends React.Component {
     </div>
     )
   }
-  
 }
