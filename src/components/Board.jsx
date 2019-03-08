@@ -1,7 +1,9 @@
 import React from 'react';
 import { Square } from './Square';
-import { Pawn } from './pieces';
+import { Pawn, Bishop, Rook, Knight, Queen, King } from './pieces';
+import boardState from './initalBoardState';
 
+console.log(boardState)
 const rows = [8, 7, 6, 5, 4, 3, 2, 1];
 const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
@@ -45,7 +47,7 @@ export default class Board extends React.Component {
               black={isBlack(r, index)} 
               onClack={this.onSelect(c,r)}
             >
-              { position === `${c}${r}` && <Pawn></Pawn> }
+              { position === `${c}${r}` && <King /> }
             </Square>
           ))}
         </div>)
