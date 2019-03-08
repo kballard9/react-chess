@@ -1,6 +1,6 @@
 import React from 'react';
 import { Square } from './Square';
-import Pawn from './Pawn';
+import { Pawn } from './pieces';
 
 const rows = [8, 7, 6, 5, 4, 3, 2, 1];
 const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
@@ -18,11 +18,20 @@ export default class Board extends React.Component {
   }
 
   onPositionChange = (column, row) => () => {console.log(column, row)
-  this.setState({position:`${column}${row}`})
+    this.setState({position:`${column}${row}`})
   }
 
   onSelect = (column, row) => () => {
-    this.setState({selected:`${column}${row}`});
+    const { selected, position } = this.state;
+
+    if(selected === position){
+      this.setState({
+        position: `${column}${row}`,
+        selected: null
+      });
+    }else{ 
+      this.setState({selected:`${column}${row}`});
+    }
   }
 
   render() {
@@ -31,8 +40,12 @@ export default class Board extends React.Component {
       {rows.map(r => (
         <div key={r} style={{ display: 'flex' }}>
           {columns.map((c, index) => (
-            <Square key={c} selected={`${c}${r}` === selected} black={isBlack(r, index)} onClack={this.onSelect(c,r)}>
-            { position === `${c}${r}` && <Pawn></Pawn> }
+            <Square key={c}
+              selected={`${c}${r}` === selected}
+              black={isBlack(r, index)} 
+              onClack={this.onSelect(c,r)}
+            >
+              { position === `${c}${r}` && <Pawn></Pawn> }
             </Square>
           ))}
         </div>)
